@@ -446,7 +446,7 @@ GameObject:
   - component: {fileID: 604574955}
   - component: {fileID: 604574954}
   m_Layer: 5
-  m_Name: Image
+  m_Name: "\u5206\u6578\u5E95\u5716"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -486,7 +486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 0.4117647}
+  m_Color: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 0.0627451}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -923,8 +923,12 @@ MonoBehaviour:
   player: {fileID: 1958017813}
   itemPrefabs:
   - {fileID: 1712157951062420400, guid: 5b659ec21b9deaf41846df8e6313b4f8, type: 3}
+  - {fileID: 6524576913948920825, guid: f320a3f8dccdc3c4e8831ea581fe01c1, type: 3}
+  - {fileID: 5066753103995374497, guid: 14d8ba679e579234e82db1353309c2ce, type: 3}
+  - {fileID: 6861379167216692977, guid: ed779b2e521a19b43b062ddfb21069c9, type: 3}
+  - {fileID: 8743547938121844989, guid: 43a1bb9f8ebcb8e41aa127ca18c9f1f7, type: 3}
   spawnPoint: {fileID: 1937002187}
-  scoreText: {fileID: 0}
+  scoreText: {fileID: 328291514}
 --- !u!1 &1958017813
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,7 +953,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958017813}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 3.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

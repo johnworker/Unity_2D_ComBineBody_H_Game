@@ -3,10 +3,11 @@
 public class Item : MonoBehaviour
 {
     private GameManager gameManager;
+    public string itemType; // 物品类型
 
     private void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("遊戲管理器").GetComponent<GameManager>();
     }
 
     public void SetGameManager(GameManager manager)
