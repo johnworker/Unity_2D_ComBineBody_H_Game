@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
             Item itemComponent = newItem.GetComponent<Item>();
             itemComponent.SetGameManager(this);
             itemComponent.itemType = itemComponent.itemType; // 设置物品类型
+            itemComponent.itemLevel = itemLevels[itemComponent.itemType]; // 设置物品等级
         }
     }
 
