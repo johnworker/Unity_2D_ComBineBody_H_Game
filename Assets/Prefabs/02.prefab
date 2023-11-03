@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 767943802270264493}
   - component: {fileID: 7308185625419926058}
-  - component: {fileID: -4052507171084838301}
+  - component: {fileID: -4467349570514958120}
   - component: {fileID: -7839506377788119282}
   - component: {fileID: -4557032989154930096}
   m_Layer: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-4052507171084838301
+--- !u!114 &-4467349570514958120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,10 +96,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6524576913948920825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bd0a0556ce90ec449bfd98f9475cac4, type: 3}
+  m_Script: {fileID: 11500000, guid: 70bbecf7d720ebe49b93735f0424ffb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 
+  id: 0
+  score: 0
+  nextLevelPrefab: {fileID: 5066753103995374497, guid: 14d8ba679e579234e82db1353309c2ce, type: 3}
 --- !u!50 &-7839506377788119282
 Rigidbody2D:
   serializedVersion: 4

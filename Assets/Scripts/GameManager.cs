@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        scoreText.text = "Score: 0";
+        scoreText.text = "0";
 
         // 初始化物品类型的等级
         foreach (var itemPrefab in itemPrefabs)
@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
 
     public void MergeItems(Item item1, Item item2)
     {
+
         if (item1.itemType == item2.itemType)
         {
             // 合并物品

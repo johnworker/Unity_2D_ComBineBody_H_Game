@@ -18,11 +18,13 @@ public class Item : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 物品碰撞检测
-        if (collision.collider.CompareTag(tag))
+        Item otherItem = collision.collider.GetComponent<Item>();
+
+        // 检查碰撞的对象是否是物品，且是当前物品的两个相同实例
+        if (otherItem != null && otherItem == this)
         {
             // 通知GameManager进行合并
-            gameManager.MergeItems(this, collision.collider.GetComponent<Item>());
+            gameManager.MergeItems(this, otherItem);
             Destroy(gameObject);
         }
     }
