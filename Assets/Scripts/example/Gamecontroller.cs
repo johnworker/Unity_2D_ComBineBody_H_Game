@@ -10,8 +10,8 @@ public class Gamecontroller : MonoBehaviour
     public Transform spawnPoint;
     public Transform nextSpawnPoint;
     //public Button playButton;
-    public float minX = -5.2f; // 最小Y坐标
-    public float maxX = 5.2f; // 最大Y坐标
+    public float minX = -3.5f; // 最小Y坐标
+    public float maxX = 3.5f; // 最大Y坐标
 
     private Vector3 mousePositionOffset; // 用于保存鼠标位置的偏移
 
@@ -64,21 +64,7 @@ public class Gamecontroller : MonoBehaviour
 
             bodyPart = SpawnNextFruit();
         }
-
-        if (Input.GetMouseButton(0) && spawnedObject != null)
-        {
-            // 获取鼠标位置
-            var mousePos = Input.mousePosition;
-            var worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-            // 限制预制体的X坐标在指定的范围内，同时保持Y坐标不变
-            float newX = Mathf.Clamp(worldPos.x, minX, maxX);
-            Vector3 prefabPos = new Vector3(newX, spawnPoint.position.y, 0);
-
-            // 移动预制体到新位置
-            spawnedObject.transform.position = prefabPos;
-        }
-
+        /*
         // 在 GetMouseButtonDown(0) 时更新预览水果位置
         if (Input.GetMouseButtonDown(0) && previewFruit != null)
         {
@@ -92,7 +78,8 @@ public class Gamecontroller : MonoBehaviour
 
             // 移动预览水果到新位置
             previewFruit.gameObject.transform.position = previewFruitPos;
-        }
+        }*/
+
         // 放下物體
         /*if (Input.GetKeyDown(KeyCode.Space))
         {
