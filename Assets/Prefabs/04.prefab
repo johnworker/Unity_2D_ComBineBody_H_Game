@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6253140286905102533}
   m_Layer: 0
   m_Name: 04
-  m_TagString: Untagged
+  m_TagString: Fruit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  score: 0
+  score: 6
   nextLevelPrefab: {fileID: 8743547938121844989, guid: 43a1bb9f8ebcb8e41aa127ca18c9f1f7, type: 3}
 --- !u!50 &1468768607858055786
 Rigidbody2D:

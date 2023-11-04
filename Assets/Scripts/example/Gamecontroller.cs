@@ -34,7 +34,7 @@ public class Gamecontroller : MonoBehaviour
     /// <summary>
     /// 当前场景中所有的水果对象
     /// </summary>
-    private List<BodyPart> fruits = new List<BodyPart>();
+    private List<BodyPart> bodys = new List<BodyPart>();
     // Start is called before the first frame update
     void Start()
     {
@@ -149,7 +149,7 @@ public class Gamecontroller : MonoBehaviour
 
         part.OnLevelUp = (a, b) =>
         {
-            if (IsFruitExist(a) && IsFruitExist(b))
+            if (IsBodyExist(a) && IsBodyExist(b))
             {
                 var pos1 = a.gameObject.transform.position;
                 var pos2 = b.gameObject.transform.position;
@@ -173,7 +173,7 @@ public class Gamecontroller : MonoBehaviour
             OnGameOver();
         };
 
-        fruits.Add(part);
+        bodys.Add(part);
         return part;
     }
 
@@ -185,14 +185,14 @@ public class Gamecontroller : MonoBehaviour
         isGameOver = true;
         //playButton.gameObject.SetActive(true);
 
-        for (int i = 0; i < fruits.Count; i++)
+        for (int i = 0; i < bodys.Count; i++)
         {
-            fruits[i].SetSimulated(false);
-            AddScore(fruits[i].score);
-            Destroy(fruits[i].gameObject);
+            bodys[i].SetSimulated(false);
+            AddScore(bodys[i].score);
+            Destroy(bodys[i].gameObject);
         }
 
-        fruits.Clear();
+        bodys.Clear();
     }
 
     /// <summary>
@@ -215,11 +215,11 @@ public class Gamecontroller : MonoBehaviour
     /// <param name="body"></param>
     private void RemoveFruit(BodyPart body)
     {
-        for (int i = 0; i < fruits.Count; i++)
+        for (int i = 0; i < bodys.Count; i++)
         {
-            if (fruits[i].id == body.id)
+            if (bodys[i].id == body.id)
             {
-                fruits.Remove(body);
+                bodys.Remove(body);
                 Destroy(body.gameObject);
                 return;
             }
@@ -231,11 +231,11 @@ public class Gamecontroller : MonoBehaviour
     /// </summary>
     /// <param name="body"></param>
     /// <returns></returns>
-    private bool IsFruitExist(BodyPart body)
+    private bool IsBodyExist(BodyPart body)
     {
-        for (int i = 0; i < fruits.Count; i++)
+        for (int i = 0; i < bodys.Count; i++)
         {
-            if (fruits[i].id == body.id)
+            if (bodys[i].id == body.id)
             {
                 return true;
             }
