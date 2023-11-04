@@ -57,14 +57,14 @@ public class Gamecontroller : MonoBehaviour
 
             // 限制放下水果的X坐标在指定的范围内，同时保持Y坐标不变
             float newX = Mathf.Clamp(worldPos.x, minX, maxX);
-            Vector3 fruitPos = new Vector3(newX, spawnPoint.position.y, 0);
+            Vector3 bodyPos = new Vector3(newX, spawnPoint.position.y, 0);
 
-            bodyPart.gameObject.transform.position = fruitPos;
+            bodyPart.gameObject.transform.position = bodyPos;
             bodyPart.SetSimulated(true);
 
             bodyPart = SpawnNextFruit();
         }
-        /*
+        
         // 在 GetMouseButtonDown(0) 时更新预览水果位置
         if (Input.GetMouseButtonDown(0) && previewFruit != null)
         {
@@ -73,12 +73,12 @@ public class Gamecontroller : MonoBehaviour
             var worldPos = Camera.main.ScreenToWorldPoint(mousePos);
 
             // 限制预览水果的X坐标在指定的范围内，同时保持Y坐标不变
-            float newX = Mathf.Clamp(worldPos.x, minX, maxX);
+            float newX = Mathf.Clamp(worldPos.x, minX , maxX);
             Vector3 previewFruitPos = new Vector3(newX, spawnPoint.position.y, 0);
 
             // 移动预览水果到新位置
             previewFruit.gameObject.transform.position = previewFruitPos;
-        }*/
+        }
 
         // 放下物體
         /*if (Input.GetKeyDown(KeyCode.Space))
