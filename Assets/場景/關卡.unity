@@ -1653,6 +1653,7 @@ MonoBehaviour:
   playerObject: {fileID: 1958017813}
   scoreLabel: {fileID: 328291514}
   score: 0
+  dropInterval: 3
 --- !u!1 &1958017813
 GameObject:
   m_ObjectHideFlags: 0

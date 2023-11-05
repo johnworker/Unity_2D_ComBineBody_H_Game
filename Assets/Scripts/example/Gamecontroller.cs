@@ -35,6 +35,10 @@ public class Gamecontroller : MonoBehaviour
     /// 当前场景中所有的水果对象
     /// </summary>
     private List<BodyPart> bodys = new List<BodyPart>();
+
+    public float dropInterval = 3.0f;
+
+    private float timeSinceLastDrop = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -98,7 +102,13 @@ public class Gamecontroller : MonoBehaviour
             fruit.SetSimulated(false);
         }*/
 
+        timeSinceLastDrop += Time.deltaTime;
 
+        if (timeSinceLastDrop >= dropInterval)
+        {
+            DropObject();
+            timeSinceLastDrop = 0.0f;
+        }
 
     }
 
@@ -239,4 +249,17 @@ public class Gamecontroller : MonoBehaviour
         this.score += score;
         scoreLabel.text = $"{this.score}";
     }
+
+    private void DropObject()
+    {
+        if (bodyPrefabList.Count > 0)
+        {
+            int randomIndex = Random.Range(0, bodyPrefabList.Count);
+            GameObject prefab = bodyPrefabList[randomIndex].gameObject;
+
+            Vector3 spawnPosition = spawnPoint.position;
+            Instantiate(prefab, spawnPosition, Quaternion.identity);
+        }
+    }
+
 }
