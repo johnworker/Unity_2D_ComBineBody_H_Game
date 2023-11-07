@@ -50,9 +50,9 @@ public class BodyPart : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var obj = collision.gameObject;
-        var fruit = obj.GetComponent<BodyPart>();
+        var body = obj.GetComponent<BodyPart>();
 
-        if (fruit != null)
+        if (body != null)
         {
             if (obj.name == gameObject.name)
             {
@@ -63,12 +63,12 @@ public class BodyPart : MonoBehaviour
 
                     // Handle merging, e.g., destroy or deactivate the collided fruit
                     Destroy(obj);
-                    OnLevelUp?.Invoke(this, fruit);
+                    OnLevelUp?.Invoke(this, body);
                 }
             }
         }
 
-        if (obj.CompareTag("Fruit"))
+        if (obj.CompareTag("身體"))
         {
             // Set the parent to null first
             obj.transform.parent = null;
@@ -79,7 +79,7 @@ public class BodyPart : MonoBehaviour
                 {
                     // Handle merging
                     // obj.transform.parent = null; // No need to set the parent to null again
-                    OnLevelUp?.Invoke(this, fruit);
+                    OnLevelUp?.Invoke(this, body);
                 }
             }
         }
@@ -88,7 +88,7 @@ public class BodyPart : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var obj = collision.gameObject;
-        if (obj.CompareTag("Redline"))
+        if (obj.CompareTag("死亡線"))
         {
             Debug.Log("OnTriggerEnter2D Redline");
             isTouchRedline = true;
@@ -101,9 +101,9 @@ public class BodyPart : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         var obj = collision.gameObject;
-        if (obj.CompareTag("Redline"))
+        if (obj.CompareTag("死亡線"))
         {
-            Debug.Log("OnTriggerExit2D Redline");
+            Debug.Log("OnTriggerExit2D 死亡線");
             isTouchRedline = false;
             timer = 0;
             obj.transform.parent = null;

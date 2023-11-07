@@ -9,7 +9,7 @@ public class Gamecontroller : MonoBehaviour
     public List<BodyPart> bodyPrefabList;
     public Transform spawnPoint;
     public Transform nextSpawnPoint;
-    //public Button playButton;
+    public Button playButton;
     public float minX = -3.5f; // 最小Y坐标
     public float maxX = 3.5f; // 最大Y坐标
 
@@ -17,10 +17,14 @@ public class Gamecontroller : MonoBehaviour
 
     public GameObject playerObject; // 在Inspector中分配玩家物件
 
+    public Transform target; // 在Inspector中分配目标对象
+
     private bool isMousePressed = false; // 用于标记鼠标左键是否按住
     private GameObject spawnedObject; // 用于存储通过Instantiate创建的物体
 
     private BodyPart previewFruit;
+
+    private BodyPart currentFruit; // 用于存储当前生成的物体
 
     public TextMeshProUGUI scoreLabel;
     /// <summary>
@@ -42,7 +46,9 @@ public class Gamecontroller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bodyPart = SpawnNextFruit();
+        // 一开始生成 spawnPoint 和 nextSpawnPoint 的物体
+        //SpawnCurrentFruit();
+
     }
 
     // Update is called once per frame
@@ -52,10 +58,22 @@ public class Gamecontroller : MonoBehaviour
         {
             return;
         }
+        // 让玩家对象跟随目标对象移动
+        if (target != null)
+        {
+            Vector3 targetPosition = target.position;
+            targetPosition.x = Mathf.Clamp(targetPosition.x, minX, maxX); // 限制X坐标在minX和maxX之间
+            targetPosition.y = playerObject.transform.position.y; // 保持Y坐标不变
+            playerObject.transform.position = targetPosition;
+
+            // 让spawnPoint跟随target移动
+            Vector3 spawnPointPosition = spawnPoint.position;
+            spawnPointPosition.x = targetPosition.x; // 使spawnPoint的X坐标等于target的X坐标
+            spawnPoint.position = spawnPointPosition;
+        }
 
         if (Input.GetMouseButtonUp(0))
         {
-            bodyPart.gameObject.transform.parent = null;
             var mousePos = Input.mousePosition;
             var worldPos = Camera.main.ScreenToWorldPoint(mousePos);
 
@@ -63,53 +81,47 @@ public class Gamecontroller : MonoBehaviour
             float newX = Mathf.Clamp(worldPos.x, minX, maxX);
             Vector3 bodyPos = new Vector3(newX, spawnPoint.position.y, 0);
 
-            bodyPart.gameObject.transform.position = bodyPos;
-            bodyPart.SetSimulated(true);
 
-            bodyPart = SpawnNextFruit();
-        }
-        
-        // 在 GetMouseButtonDown(0) 时更新预览水果位置
-        if (Input.GetMouseButtonDown(0) && previewFruit != null)
-        {
-            // 获取鼠标位置
-            var mousePos = Input.mousePosition;
-            var worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+            if (currentFruit != null)
+            {
+                currentFruit.gameObject.transform.position = bodyPos;
+                currentFruit.SetSimulated(true);
+            }
+            else
+            {
+                // 如果 currentFruit 为空，不执行任何操作
+                Debug.Log("currentFruit is null. No action taken.");
+            }
 
-            // 限制预览水果的X坐标在指定的范围内，同时保持Y坐标不变
-            float newX = Mathf.Clamp(worldPos.x, minX , maxX);
-            Vector3 previewFruitPos = new Vector3(newX, spawnPoint.position.y, 0);
+            // 将nextSpawnPoint生成下一个物体
+            currentFruit = SpawnNextFruit();
 
-            // 移动预览水果到新位置
-            previewFruit.gameObject.transform.position = previewFruitPos;
         }
 
-        // 放下物體
-        /*if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // 將水果的父物件設置為 null，從而將其從玩家物件的子物件中移除
-            fruit.gameObject.transform.parent = null;
-            var fruitPos = new Vector3(spawnPoint.transform.position.x, spawnPoint.position.y, 0);
-            fruit.gameObject.transform.position = fruitPos;
-            fruit.SetSimulated(true);
-
-            // 更新當前水果為預覽水果
-            fruit = SpawnNextFruit();
-
-            // 將預覽水果的位置設置為 spawnPoint 以便預覽下一個水果
-            var nextFruitPos = new Vector3(spawnPoint.transform.position.x, spawnPoint.position.y, 0);
-            fruit.gameObject.transform.position = nextFruitPos;
-            fruit.SetSimulated(false);
-        }*/
 
         timeSinceLastDrop += Time.deltaTime;
 
         if (timeSinceLastDrop >= dropInterval)
         {
-            DropObject();
             timeSinceLastDrop = 0.0f;
         }
 
+    }
+
+    // 辅助方法：将 nextSpawnPoint 的物体位置直接移动到 spawnPoint 的位置
+    private void MoveNextSpawnPointToSpawnPoint()
+    {
+        nextSpawnPoint.position = spawnPoint.position;
+    }
+
+    // 生成当前物体
+    private void SpawnCurrentFruit()
+    {
+        int rand = Random.Range(0, bodyPrefabList.Count);
+        GameObject prefab = bodyPrefabList[rand].gameObject;
+
+        Vector3 spawnPosition = new Vector3(spawnPoint.position.x, spawnPoint.position.y, spawnPoint.position.z);
+        currentFruit = SpawnFruit(prefab, spawnPosition);
     }
 
     /// <summary>
@@ -118,14 +130,16 @@ public class Gamecontroller : MonoBehaviour
     /// <returns></returns>
     private BodyPart SpawnNextFruit()
     {
+        // 将 nextSpawnPoint 的物体位置直接移动到 spawnPoint 的位置
+        MoveNextSpawnPointToSpawnPoint();
+
         int rand = Random.Range(0, bodyPrefabList.Count);
         GameObject prefab = bodyPrefabList[rand].gameObject;
 
-        // 使用 nextSpawnPoint 生成預覽水果
-        Vector3 previewFruitPosition = new Vector3(spawnPoint.position.x, spawnPoint.position.y, spawnPoint.position.z);
-        BodyPart previewFruit = SpawnFruit(prefab, previewFruitPosition);
+        Vector3 nextSpawnPosition = new Vector3(nextSpawnPoint.position.x, nextSpawnPoint.position.y, nextSpawnPoint.position.z);
+        BodyPart nextFruit = SpawnFruit(prefab, nextSpawnPosition);
 
-        return previewFruit;
+        return nextFruit;
     }
 
     /// <summary>
@@ -141,7 +155,7 @@ public class Gamecontroller : MonoBehaviour
         part.SetSimulated(false);
         part.id = fruidId++;
         // 設定水果的父物件為玩家物件
-        obj.transform.parent = spawnPoint.transform;
+        //obj.transform.parent = spawnPoint.transform;
 
 
         part.OnLevelUp = (a, b) =>
@@ -180,7 +194,7 @@ public class Gamecontroller : MonoBehaviour
     private void OnGameOver()
     {
         isGameOver = true;
-        //playButton.gameObject.SetActive(true);
+        playButton.gameObject.SetActive(true);
 
         for (int i = 0; i < bodys.Count; i++)
         {
@@ -197,7 +211,7 @@ public class Gamecontroller : MonoBehaviour
     /// </summary>
     public void Restart()
     {
-        //playButton.gameObject.SetActive(false);
+        playButton.gameObject.SetActive(false);
         bodyPart = SpawnNextFruit();
 
         score = 0;
@@ -248,18 +262,6 @@ public class Gamecontroller : MonoBehaviour
     {
         this.score += score;
         scoreLabel.text = $"{this.score}";
-    }
-
-    private void DropObject()
-    {
-        if (bodyPrefabList.Count > 0)
-        {
-            int randomIndex = Random.Range(0, bodyPrefabList.Count);
-            GameObject prefab = bodyPrefabList[randomIndex].gameObject;
-
-            Vector3 spawnPosition = spawnPoint.position;
-            Instantiate(prefab, spawnPosition, Quaternion.identity);
-        }
     }
 
 }

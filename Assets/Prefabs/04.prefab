@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6253140286905102533}
   m_Layer: 0
   m_Name: 04
-  m_TagString: Fruit
+  m_TagString: "\u8EAB\u9AD4"
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: ee9d6401221fb4845b3650f1fde699d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

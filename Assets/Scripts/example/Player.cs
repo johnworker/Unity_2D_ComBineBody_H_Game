@@ -9,8 +9,6 @@ public class Player : MonoBehaviour
     public float minX = -5.2f; // 最小X範圍
     public float maxX = 5.2f;  // 最大X範圍
 
-    private ObjectManager objectManager;
-
     private void Start()
     {
         //objectManager = FindObjectOfType<ObjectManager>(); // 找到場景中的ObjectManager腳本

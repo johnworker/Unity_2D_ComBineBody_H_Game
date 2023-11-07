@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Fruit
+  - "\u6B7B\u4EA1\u7DDA"
+  - "\u8EAB\u9AD4"
   layers:
   - Default
   - TransparentFX
