@@ -47,7 +47,7 @@ public class Gamecontroller : MonoBehaviour
     void Start()
     {
         // 一开始生成 spawnPoint 和 nextSpawnPoint 的物体
-        //SpawnCurrentFruit();
+        SpawnCurrentFruit();
 
     }
 
